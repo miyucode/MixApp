@@ -11,13 +11,23 @@
 
 And press "***ENTER***" key.
 
-For deleting a app, enter this in a terminal.
+For renaming a app, enter this in a terminal.
 
 **Preview**:
-<br><img src="screens/screen5.png"></img>
+<br><img src="screens/screen6.png"></img>
 
 ````batch
-mixapp.py -deleteapp <your app's name>
+mixapp.py -editapp name <your app's name> <new name>
+````
+
+For coding a app, enter this in a terminal.
+
+**Preview**:
+
+<br><img src="screens/screen7.png"></img>
+
+````batch
+mixapp.py -editapp gui <your app's name>
 ````
 
 And now, you created your first application with MixApp !
