@@ -23,7 +23,6 @@ if len(sys.argv[1]) > 0:
         if len(sys.argv[2]) > 0:
             nameofapp = sys.argv[2]
             os.remove(nameofapp + ".py")
-            print(f"MixApp> \"{nameofapp}\" has been deleted.")
         else:
             print("MixApp> Error has been detected.")
     elif sys.argv[1] == "-editapp":
@@ -37,7 +36,7 @@ if len(sys.argv[1]) > 0:
                         print("MixApp> Error has been detected.")
                 else:
                     print("MixApp> Error has been detected.")
-            elif sys.argv[2] == "gui":
+            elif sys.argv[2] == "editor":
                 if len(sys.argv[3]) > 0:
                     def notepad():
                         def savefile():
@@ -46,6 +45,11 @@ if len(sys.argv[1]) > 0:
                             file = open(f'{sys.argv[3]}.py', "w")
                             file.write(t)
                             file.close()
+                        def readfile():
+                            file = open(f'{sys.argv[3]}.py', "r")
+                            content_file = file.read()
+                            file.close()
+                            text.insert("1.0", content_file)
 
                         npgui = Tk()
                         npgui.title(f'Editing {sys.argv[3]}.py')
@@ -53,8 +57,11 @@ if len(sys.argv[1]) > 0:
                         npgui.resizable(False, False)
                         text = Text(npgui)
                         text.pack()
-                        button = Button(npgui, text="Enregistrer", command=savefile)
+                        button = Button(npgui, text="Save", command=savefile)
                         button.pack()
+
+                        readfile()
+
                         npgui.mainloop()
                     notepad()
                 else:
