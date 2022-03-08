@@ -20,6 +20,4 @@ For deleting a app, enter this in a terminal.
 mixapp.py -deleteapp <your app's name>
 ````
 
-And now, you created your first application with MixApp !
-Now, your app has located in "**mixapp**" folder. Keep your file in this folder !
-⚠ **If you move your file, you couldn't change his name or do more.**
+And now, you deleted your application with MixApp !
