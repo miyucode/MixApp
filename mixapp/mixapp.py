@@ -1,4 +1,6 @@
 from tkinter import *
+from tkinter import ttk
+import tkinter.messagebox as mb
 import os
 import sys
 
@@ -36,15 +38,19 @@ if len(sys.argv[1]) > 0:
                         print("MixApp> Error has been detected.")
                 else:
                     print("MixApp> Error has been detected.")
-            elif sys.argv[2] == "editor":
+            elif sys.argv[2] == "gui":
                 if len(sys.argv[3]) > 0:
                     def notepad():
+                        def cancelfile():
+                            npgui.destroy()
+
                         def savefile():
                             t = text.get("1.0", "end-1c")
-                            npgui.destroy()
                             file = open(f'{sys.argv[3]}.py', "w")
                             file.write(t)
                             file.close()
+                            mb.showinfo("MixApp","File has been saved with success !")
+
                         def readfile():
                             file = open(f'{sys.argv[3]}.py', "r")
                             content_file = file.read()
@@ -52,18 +58,43 @@ if len(sys.argv[1]) > 0:
                             text.insert("1.0", content_file)
 
                         npgui = Tk()
-                        npgui.title(f'Editing {sys.argv[3]}.py')
-                        npgui.geometry('850x500')
+                        npgui.title(f'MixApp - Editing {sys.argv[3]}.py')
+                        npgui.geometry('380x370')
                         npgui.resizable(False, False)
-                        text = Text(npgui)
-                        text.pack()
-                        button = Button(npgui, text="Save", command=savefile)
-                        button.pack()
+                        npgui.iconbitmap("icons/editing-icon.ico")
+                        text = Text(npgui, font=("Arial", 10))
+                        text.pack(expand=True, anchor="center")
 
                         readfile()
 
+                        menu = Menu(npgui)
+
+                        file = Menu(menu, tearoff=0)
+                        file.add_command(label="Save", command=savefile)
+                        file.add_command(label="Cancel", command=cancelfile)
+
+                        menu.add_cascade(label="File", menu=file)
+
+                        npgui.config(menu=menu)
                         npgui.mainloop()
                     notepad()
+                else:
+                    print("MixApp> Error has been detected.")
+            elif sys.argv[2] == "config":
+                if len(sys.argv[3]) > 0:
+                    configwindow = Tk()
+                    configwindow.title(f'MixApp - Configurate {sys.argv[3]}.py')
+                    configwindow.iconbitmap("icons/config-icon.ico")
+                    configwindow.geometry('400x400')
+                    configwindow.resizable(False, False)
+                    configwindow.bind('<Escape>', lambda: configwindow.destroy())
+
+                    nameapp = sys.argv[3]
+
+                    Label(configwindow, text=f"Current Name: ", font=("Arial", 10)).place(relx=0.3, rely=0.1)
+                    Label(configwindow, text=f"{sys.argv[3]}", font=("Arial", 10)).place(relx=0.53, rely=0.1)
+
+                    configwindow.mainloop()
                 else:
                     print("MixApp> Error has been detected.")
             else:
